@@ -214,36 +214,35 @@ if df_consolidado is not None:
         st.metric("Probabilidade Média", f"{avg_prob:.2f}%")
 
     # --- Indicadores de Probabilidade por Cluster ---
-
     st.subheader("🎯 Insights por Cluster")
     col4, col5 = st.columns(2)
     
     if not df_filtered.empty:
         # 1. Agrupar por tipo de cliente e calcular a probabilidade média de compra
         cluster_prob_media = df_filtered.groupby('tipo_cliente')['prob_prox_compra_7_dias'].mean().sort_values(ascending=False)
-    
+        
         # 2. Encontrar o cluster com a maior e a menor probabilidade
-        cluster_maior_prob = cluster_prob_media.index[-1] # Inverti para pegar o maior primeiro
-        maior_prob_valor = cluster_prob_media.values[-1] * 100
-    
-        cluster_menor_prob = cluster_prob_media.index[-0] # Inverti para pegar o menor depois
-        menor_prob_valor = cluster_prob_media.values[-0] * 100
+        cluster_maior_prob = cluster_prob_media.index[0]
+        maior_prob_valor = cluster_prob_media.values[0] * 100
+        
+        cluster_menor_prob = cluster_prob_media.index[-1]
+        menor_prob_valor = cluster_prob_media.values[-1] * 100
     
         # 3. Calcular a diferença para o delta (em relação à média geral)
         prob_media_geral = df_filtered['prob_prox_compra_7_dias'].mean() * 100
         delta_maior = maior_prob_valor - prob_media_geral
         delta_menor = menor_prob_valor - prob_media_geral
-    
+        
         with col4:
             st.metric(
-                f"**Maior Probabilidade:** _{cluster_maior_prob}_",
+                f"Maior Probabilidade de Compra: <span style='color:white; font-size:18px;'>**{cluster_maior_prob}**</span>",
                 f"{maior_prob_valor:.2f}%",
                 delta=f"{delta_maior:.2f} p.p."
             )
     
         with col5:
             st.metric(
-                f"**Menor Probabilidade:** _{cluster_menor_prob}_",
+                f"Menor Probabilidade de Compra: <span style='color:white; font-size:18px;'>**{cluster_menor_prob}**</span>",
                 f"{menor_prob_valor:.2f}%",
                 delta=f"{delta_menor:.2f} p.p."
             )
@@ -378,4 +377,5 @@ if df_consolidado is not None:
 
 
     )
+
 
