@@ -197,7 +197,43 @@ if df_consolidado is not None:
         )
 
     # CONTEUDO PRINCIPAL DO DASHBOARD
+
+    # --- Indicadores de Probabilidade por Cluster ---
+
+    st.subheader("🎯 Insights por Cluster")
+    col4, col5 = st.columns(2)
     
+    if not df_filtered.empty:
+        # 1. Agrupar por tipo de cliente e calcular a probabilidade média de compra
+        cluster_prob_media = df_filtered.groupby('tipo_cliente')['prob_prox_compra_7_dias'].mean().sort_values(ascending=False)
+        
+        # 2. Encontrar o cluster com a maior e a menor probabilidade
+        cluster_maior_prob = cluster_prob_media.index[0]
+        maior_prob_valor = cluster_prob_media.values[0] * 100
+        
+        cluster_menor_prob = cluster_prob_media.index[-1]
+        menor_prob_valor = cluster_prob_media.values[-1] * 100
+    
+        # 3. Calcular a diferença para o delta (em relação à média geral)
+        prob_media_geral = df_filtered['prob_prox_compra_7_dias'].mean() * 100
+        delta_maior = maior_prob_valor - prob_media_geral
+        delta_menor = menor_prob_valor - prob_media_geral
+        
+        with col4:
+            st.metric(
+                f"Maior Probabilidade de Compra: {cluster_maior_prob}",
+                f"{maior_prob_valor:.2f}%",
+                delta=f"{delta_maior:.2f} p.p."
+            )
+    
+        with col5:
+            st.metric(
+                f"Menor Probabilidade de Compra: {cluster_menor_prob}",
+                f"{menor_prob_valor:.2f}%",
+                delta=f"{delta_menor:.2f} p.p."
+            )
+    else:
+        st.info("Não há dados de clusters para os filtros selecionados.")
     # METRICAS SELECIONADAS
     st.subheader("📊 Métricas Principais")
     col1, col2, col3 = st.columns(3)
@@ -340,5 +376,6 @@ if df_consolidado is not None:
     st.markdown(
         "<div style='text-align: center; color: #3b2899;'>🔍 Customer Insights Dashboard - Desenvolvido com Streamlit</div>",
         unsafe_allow_html=True
+
 
     )
