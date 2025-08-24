@@ -213,7 +213,7 @@ if df_consolidado is not None:
         avg_prob = df_filtered['prob_prox_compra_7_dias'].mean() * 100
         st.metric("Probabilidade Média", f"{avg_prob:.2f}%")
 
-   # --- Análise e Visualização dos Indicadores de Cluster ---
+  # --- Análise e Visualização dos Indicadores de Cluster ---
 
     st.subheader("🎯 Insights por Cluster")
     col4, col5 = st.columns(2)
@@ -239,15 +239,15 @@ if df_consolidado is not None:
             delta_maior_color = "green" if delta_maior > 0 else "red"
             delta_maior_symbol = "↑" if delta_maior > 0 else "↓"
             st.markdown(f"""
-                <div style="background-color: #3b2899; padding: 15px; border-radius: 10px; border-left: 4px solid #ff4f63; color: white;">
-                    <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">Maior Probabilidade de Compra</div>
-                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
-                        <div style="font-size: 24px; font-weight: bold;">{maior_prob_valor:.2f}%</div>
-                        <div style="font-size: 14px; color: {delta_maior_color}; font-weight: bold; margin-left: 10px;">
+                <div style="font-family: sans-serif; padding: 15px; border-left: 4px solid #ff4f63; margin-bottom: 20px;">
+                    <div style="font-size: 16px; font-weight: 500; color: #3b2899; margin-bottom: 5px;">Maior Probabilidade de Compra</div>
+                    <div style="display: flex; align-items: baseline; gap: 10px;">
+                        <span style="font-size: 26px; font-weight: bold; color: #3b2899;">{maior_prob_valor:.2f}%</span>
+                        <span style="font-size: 14px; font-weight: bold; color: {delta_maior_color};">
                             {delta_maior_symbol} {abs(delta_maior):.2f} p.p.
-                        </div>
+                        </span>
                     </div>
-                    <div style="font-size: 20px; font-weight: bold; margin-top: 10px; text-transform: capitalize;">{cluster_maior_prob}</div>
+                    <div style="font-size: 20px; font-weight: bold; color: #3b2899; margin-top: 10px; text-transform: capitalize;">{cluster_maior_prob}</div>
                 </div>
                 """, unsafe_allow_html=True)
         
@@ -256,18 +256,17 @@ if df_consolidado is not None:
             delta_menor_color = "green" if delta_menor > 0 else "red"
             delta_menor_symbol = "↑" if delta_menor > 0 else "↓"
             st.markdown(f"""
-                <div style="background-color: #3b2899; padding: 15px; border-radius: 10px; border-left: 4px solid #ff4f63; color: white;">
-                    <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">Menor Probabilidade de Compra</div>
-                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
-                        <div style="font-size: 24px; font-weight: bold;">{menor_prob_valor:.2f}%</div>
-                        <div style="font-size: 14px; color: {delta_menor_color}; font-weight: bold; margin-left: 10px;">
+                <div style="font-family: sans-serif; padding: 15px; border-left: 4px solid #ff4f63; margin-bottom: 20px;">
+                    <div style="font-size: 16px; font-weight: 500; color: #3b2899; margin-bottom: 5px;">Menor Probabilidade de Compra</div>
+                    <div style="display: flex; align-items: baseline; gap: 10px;">
+                        <span style="font-size: 26px; font-weight: bold; color: #3b2899;">{menor_prob_valor:.2f}%</span>
+                        <span style="font-size: 14px; font-weight: bold; color: {delta_menor_color};">
                             {delta_menor_symbol} {abs(delta_menor):.2f} p.p.
-                        </div>
+                        </span>
                     </div>
-                    <div style="font-size: 20px; font-weight: bold; margin-top: 10px; text-transform: capitalize;">{cluster_menor_prob}</div>
+                    <div style="font-size: 20px; font-weight: bold; color: #3b2899; margin-top: 10px; text-transform: capitalize;">{cluster_menor_prob}</div>
                 </div>
                 """, unsafe_allow_html=True)
-    
     else:
         st.info("Não há dados de clusters para os filtros selecionados.")
     # ---
@@ -399,6 +398,7 @@ if df_consolidado is not None:
 
 
     )
+
 
 
 
