@@ -242,8 +242,8 @@ if df_consolidado is not None:
                 <div style="background-color: #3b2899; padding: 15px; border-radius: 10px; border-left: 4px solid #ff4f63; color: white;">
                     <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">Maior Probabilidade de Compra</div>
                     <div style="display: flex; align-items: baseline; justify-content: space-between;">
-                        <div style="font-size: 40px; font-weight: bold;">{maior_prob_valor:.2f}%</div>
-                        <div style="font-size: 40px; color: {delta_maior_color}; font-weight: bold; margin-left: 10px;">
+                        <div style="font-size: 35px; font-weight: bold;">{maior_prob_valor:.2f}%</div>
+                        <div style="font-size: 35px; color: {delta_maior_color}; font-weight: bold; margin-left: 10px;">
                             {delta_maior_symbol} {abs(delta_maior):.2f} p.p.
                         </div>
                     </div>
@@ -259,8 +259,8 @@ if df_consolidado is not None:
                 <div style="background-color: #3b2899; padding: 15px; border-radius: 10px; border-left: 4px solid #ff4f63; color: white;">
                     <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">Menor Probabilidade de Compra</div>
                     <div style="display: flex; align-items: baseline; justify-content: space-between;">
-                        <div style="font-size: 40px; font-weight: bold;">{menor_prob_valor:.2f}%</div>
-                        <div style="font-size: 40px; color: {delta_menor_color}; font-weight: bold; margin-left: 10px;">
+                        <div style="font-size: 28px; font-weight: bold;">{menor_prob_valor:.2f}%</div>
+                        <div style="font-size: 28px; color: {delta_menor_color}; font-weight: bold; margin-left: 10px;">
                             {delta_menor_symbol} {abs(delta_menor):.2f} p.p.
                         </div>
                     </div>
@@ -399,6 +399,7 @@ if df_consolidado is not None:
 
 
     )
+
 
 
 
