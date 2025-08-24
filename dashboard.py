@@ -213,7 +213,8 @@ if df_consolidado is not None:
         avg_prob = df_filtered['prob_prox_compra_7_dias'].mean() * 100
         st.metric("Probabilidade Média", f"{avg_prob:.2f}%")
 
-    # --- Indicadores de Probabilidade por Cluster ---
+    # --- Análise e Visualização dos Indicadores de Cluster ---
+
     st.subheader("🎯 Insights por Cluster")
     col4, col5 = st.columns(2)
     
@@ -233,19 +234,34 @@ if df_consolidado is not None:
         delta_maior = maior_prob_valor - prob_media_geral
         delta_menor = menor_prob_valor - prob_media_geral
         
-        with col4:
-            st.metric(
-                f"Maior Probabilidade de Compra: <span style='color:white; font-size:18px;'>**{cluster_maior_prob}**</span>",
-                f"{maior_prob_valor:.2f}%",
-                delta=f"{delta_maior:.2f} p.p."
-            )
+        # Define a cor do delta
+        cor_delta_maior = "green" if delta_maior > 0 else "red"
+        cor_delta_menor = "green" if delta_menor > 0 else "red"
     
+        with col4:
+            st.markdown(f"""
+                <div style="background-color: #3b2899; padding: 15px; border-radius: 10px; border-left: 4px solid #ff4f63; color: white;">
+                    <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">Maior Probabilidade de Compra</div>
+                    <div style="font-size: 24px; font-weight: bold;">{maior_prob_valor:.2f}%</div>
+                    <div style="font-size: 14px; color: {cor_delta_maior}; margin-top: 5px;">
+                        {f'↑ {delta_maior:.2f} p.p.' if delta_maior > 0 else f'↓ {abs(delta_maior):.2f} p.p.'}
+                    </div>
+                    <div style="font-size: 20px; font-weight: bold; margin-top: 10px;">{cluster_maior_prob}</div>
+                </div>
+                """, unsafe_allow_html=True)
+        
         with col5:
-            st.metric(
-                f"Menor Probabilidade de Compra: <span style='color:white; font-size:18px;'>**{cluster_menor_prob}**</span>",
-                f"{menor_prob_valor:.2f}%",
-                delta=f"{delta_menor:.2f} p.p."
-            )
+            st.markdown(f"""
+                <div style="background-color: #3b2899; padding: 15px; border-radius: 10px; border-left: 4px solid #ff4f63; color: white;">
+                    <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">Menor Probabilidade de Compra</div>
+                    <div style="font-size: 24px; font-weight: bold;">{menor_prob_valor:.2f}%</div>
+                    <div style="font-size: 14px; color: {cor_delta_menor}; margin-top: 5px;">
+                        {f'↑ {delta_menor:.2f} p.p.' if delta_menor > 0 else f'↓ {abs(delta_menor):.2f} p.p.'}
+                    </div>
+                    <div style="font-size: 20px; font-weight: bold; margin-top: 10px;">{cluster_menor_prob}</div>
+                </div>
+                """, unsafe_allow_html=True)
+    
     else:
         st.info("Não há dados de clusters para os filtros selecionados.")
     # ---
@@ -377,5 +393,6 @@ if df_consolidado is not None:
 
 
     )
+
 
 
