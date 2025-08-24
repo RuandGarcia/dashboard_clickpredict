@@ -213,7 +213,7 @@ if df_consolidado is not None:
         avg_prob = df_filtered['prob_prox_compra_7_dias'].mean() * 100
         st.metric("Probabilidade Média", f"{avg_prob:.2f}%")
 
-    # --- Análise e Visualização dos Indicadores de Cluster ---
+   # --- Análise e Visualização dos Indicadores de Cluster ---
 
     st.subheader("🎯 Insights por Cluster")
     col4, col5 = st.columns(2)
@@ -233,32 +233,38 @@ if df_consolidado is not None:
         prob_media_geral = df_filtered['prob_prox_compra_7_dias'].mean() * 100
         delta_maior = maior_prob_valor - prob_media_geral
         delta_menor = menor_prob_valor - prob_media_geral
-        
-        # Define a cor do delta
-        cor_delta_maior = "green" if delta_maior > 0 else "red"
-        cor_delta_menor = "green" if delta_menor > 0 else "red"
     
         with col4:
+            # Estilo para o delta maior - cor verde para positivo e vermelho para negativo
+            delta_maior_color = "green" if delta_maior > 0 else "red"
+            delta_maior_symbol = "↑" if delta_maior > 0 else "↓"
             st.markdown(f"""
                 <div style="background-color: #3b2899; padding: 15px; border-radius: 10px; border-left: 4px solid #ff4f63; color: white;">
                     <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">Maior Probabilidade de Compra</div>
-                    <div style="font-size: 24px; font-weight: bold;">{maior_prob_valor:.2f}%</div>
-                    <div style="font-size: 14px; color: {cor_delta_maior}; margin-top: 5px;">
-                        {f'↑ {delta_maior:.2f} p.p.' if delta_maior > 0 else f'↓ {abs(delta_maior):.2f} p.p.'}
+                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                        <div style="font-size: 24px; font-weight: bold;">{maior_prob_valor:.2f}%</div>
+                        <div style="font-size: 14px; color: {delta_maior_color}; font-weight: bold; margin-left: 10px;">
+                            {delta_maior_symbol} {abs(delta_maior):.2f} p.p.
+                        </div>
                     </div>
-                    <div style="font-size: 20px; font-weight: bold; margin-top: 10px;">{cluster_maior_prob}</div>
+                    <div style="font-size: 20px; font-weight: bold; margin-top: 10px; text-transform: capitalize;">{cluster_maior_prob}</div>
                 </div>
                 """, unsafe_allow_html=True)
         
         with col5:
+            # Estilo para o delta menor - cor verde para positivo e vermelho para negativo
+            delta_menor_color = "green" if delta_menor > 0 else "red"
+            delta_menor_symbol = "↑" if delta_menor > 0 else "↓"
             st.markdown(f"""
                 <div style="background-color: #3b2899; padding: 15px; border-radius: 10px; border-left: 4px solid #ff4f63; color: white;">
                     <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">Menor Probabilidade de Compra</div>
-                    <div style="font-size: 24px; font-weight: bold;">{menor_prob_valor:.2f}%</div>
-                    <div style="font-size: 14px; color: {cor_delta_menor}; margin-top: 5px;">
-                        {f'↑ {delta_menor:.2f} p.p.' if delta_menor > 0 else f'↓ {abs(delta_menor):.2f} p.p.'}
+                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                        <div style="font-size: 24px; font-weight: bold;">{menor_prob_valor:.2f}%</div>
+                        <div style="font-size: 14px; color: {delta_menor_color}; font-weight: bold; margin-left: 10px;">
+                            {delta_menor_symbol} {abs(delta_menor):.2f} p.p.
+                        </div>
                     </div>
-                    <div style="font-size: 20px; font-weight: bold; margin-top: 10px;">{cluster_menor_prob}</div>
+                    <div style="font-size: 20px; font-weight: bold; margin-top: 10px; text-transform: capitalize;">{cluster_menor_prob}</div>
                 </div>
                 """, unsafe_allow_html=True)
     
@@ -393,6 +399,7 @@ if df_consolidado is not None:
 
 
     )
+
 
 
 
